@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: data-transfer-pod
+spec:
+  volumes:
+    - name: data-volume
+      persistentVolumeClaim:
+        claimName: php-website-pvc
+  containers:
+    - name: data-transfer-container
+      image: sugandhdevops/pvdata:latest
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          rsync -av /data/ /var/www/html/
+      volumeMounts:
+        - mountPath: "/var/www/html/"
+          name: data-volume
+  restartPolicy: Never

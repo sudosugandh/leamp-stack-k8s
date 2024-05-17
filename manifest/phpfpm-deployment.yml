@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpfpm
+  labels:
+    app: phpfpm
+    layer: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phpfpm
+  template:
+    metadata:
+      labels:
+        app: phpfpm
+    spec:
+      containers:
+        - name: phpfpm
+          image: sugandhdevops/php7.2
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - mountPath: /var/www/html/
+              name: contents
+      volumes:
+        - name: contents
+          persistentVolumeClaim:
+            claimName: php-website-pvc
