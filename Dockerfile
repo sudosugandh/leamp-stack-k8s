@@ -5,4 +5,4 @@ FROM alpine:latest
 RUN apk update && apk add --no-cache rsync
 
 # Copy local data to /data directory inside the container
-COPY ./src /data
+COPY ./php /data
