@@ -65,3 +65,83 @@ if [ ${DAY_OF_MONTH} -eq 01 ]; then
 fi
 
 ### End of script ####
+
+
+
+If you want to perform an action every day and use the date divided by 7 as a part of your logic without using a conditional check, you can incorporate the remainder directly into your commands. Here’s an example script:
+
+```bash
+#!/bin/bash
+
+TODAY=$(date +"%d%b%Y")
+DAY_OF_WEEK=$(date +%u) # 1-7 (Monday-Sunday)
+DAY_OF_MONTH=$(date +%d) # 01-31
+
+################################################################
+################## Update below values  ########################
+
+DB_BACKUP_PATH='/backup/dbbackup'
+MYSQL_HOST='localhost'
+MYSQL_PORT='3306'
+MYSQL_USER='root'
+MYSQL_PASSWORD='mysecret'
+
+# Calculate the remainder when day of the month is divided by 7
+REMAINDER=$(($DAY_OF_MONTH % 7))
+
+# Perform backup and include the remainder in the filename or directory name
+BACKUP_FILE="${DB_BACKUP_PATH}/backup_${TODAY}_rem${REMAINDER}.sql"
+
+echo "Backing up database to ${BACKUP_FILE}..."
+
+# Replace the following line with your actual backup command
+# For example, using mysqldump:
+mysqldump -h $MYSQL_HOST -P $MYSQL_PORT -u $MYSQL_USER -p$MYSQL_PASSWORD --all-databases > $BACKUP_FILE
+
+echo "Backup completed!"
+```
+
+In this script, the `REMAINDER` variable is used to create a unique backup filename based on the day of the month divided by 7. The script performs the backup every day, and the backup file name will include the remainder value, ensuring a different file name each week.
+
+
+
+
+If you want to perform an action every day and use the date divided by 7 as a part of your logic without using a conditional check, you can incorporate the remainder directly into your commands. Here’s an example script:
+
+```bash
+#!/bin/bash
+
+TODAY=$(date +"%d%b%Y")
+DAY_OF_WEEK=$(date +%u) # 1-7 (Monday-Sunday)
+DAY_OF_MONTH=$(date +%d) # 01-31
+
+################################################################
+################## Update below values  ########################
+
+DB_BACKUP_PATH='/backup/dbbackup'
+MYSQL_HOST='localhost'
+MYSQL_PORT='3306'
+MYSQL_USER='root'
+MYSQL_PASSWORD='mysecret'
+
+# Calculate the remainder when day of the month is divided by 7
+REMAINDER=$(($DAY_OF_MONTH % 7))
+
+# Perform backup and include the remainder in the filename or directory name
+BACKUP_FILE="${DB_BACKUP_PATH}/backup_${TODAY}_rem${REMAINDER}.sql"
+
+echo "Backing up database to ${BACKUP_FILE}..."
+
+# Replace the following line with your actual backup command
+# For example, using mysqldump:
+mysqldump -h $MYSQL_HOST -P $MYSQL_PORT -u $MYSQL_USER -p$MYSQL_PASSWORD --all-databases > $BACKUP_FILE
+
+echo "Backup completed!"
+```
+
+In this script, the `REMAINDER` variable is used to create a unique backup filename based on the day of the month divided by 7. The script performs the backup every day, and the backup file name will include the remainder value, ensuring a different file name each week.
+
+
+
+
+
